@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daniel Droguett · Data Scientist</title>
+<meta name="description" content="Daniel Droguett — Data Scientist. Plataformas de datos, dashboards y agentes de IA en producción. Chillán, Chile.">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c222b; --line:#272e38;
+    --txt:#e6edf3; --txt2:#9da7b3; --txt3:#6e7681;
+    --green:#3fb950; --green2:#7ee787; --blue:#58a6ff;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  .mono{font-family:var(--mono)}
+
+  /* boot */
+  #boot{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:var(--mono);color:var(--green);transition:opacity .5s}
+  #boot .l{font-size:13px;color:var(--txt2);margin:2px 0}
+  #boot .l b{color:var(--green)}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:40;background:rgba(13,17,23,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;gap:18px;height:56px;font-family:var(--mono);font-size:13px;flex-wrap:wrap}
+  nav .brand{color:var(--green);font-weight:700}
+  nav .links{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
+  nav .links a{color:var(--txt2);cursor:pointer}
+  nav .links a:hover{color:var(--txt)}
+  .langtog{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex}
+  .langtog button{background:none;border:none;color:var(--txt3);padding:5px 9px;cursor:pointer;font-family:var(--mono)}
+  .langtog button.on{background:var(--green);color:#04130a;font-weight:700}
+
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  .sechead{font-family:var(--mono);font-size:13px;color:var(--green);margin-bottom:6px}
+  h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin-bottom:22px}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.4fr .9fr;gap:30px;align-items:start}
+  @media(max-width:720px){.hero{grid-template-columns:1fr}}
+  .prompt{font-family:var(--mono);color:var(--green);font-size:14px;margin-bottom:12px}
+  h1{font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.1}
+  @media(max-width:720px){h1{font-size:32px}}
+  .role{font-family:var(--mono);color:var(--green2);font-size:16px;margin:10px 0 4px}
+  .loc{color:var(--txt2);font-size:14px;margin-bottom:20px}
+  .bio{color:#c9d3de;font-size:15.5px;max-width:560px}
+  .bio p{margin-bottom:12px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;font-family:var(--mono);font-size:13px;margin:22px 0}
+  .stats .k{color:var(--txt3)}.stats .v{color:var(--green2)}
+  .status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;color:var(--green);border:1px solid rgba(63,185,80,.3);background:rgba(63,185,80,.08);border-radius:999px;padding:6px 12px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .pcard .bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--txt3)}
+  .pcard .bar i{width:10px;height:10px;border-radius:50%;background:#30363d;display:inline-block}
+  .pcard .body{padding:20px;text-align:center}
+  .avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(160deg,#1f6f43,#0d1117);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:34px;font-weight:800;color:var(--green2);margin:0 auto 14px}
+  .pcard h3{font-size:16px}.pcard .sub{color:var(--txt2);font-size:13px;font-family:var(--mono);margin-top:4px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font-family:var(--mono);font-size:12px;color:var(--green2);border:1px solid rgba(63,185,80,.25);background:rgba(63,185,80,.07);border-radius:6px;padding:5px 10px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .proj{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:18px 20px}
+  .proj.feat{border-left-color:var(--blue);background:linear-gradient(160deg,#10243b,#161b22)}
+  .proj .tag{font-family:var(--mono);font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:1px}
+  .proj h3{font-size:17px;margin:6px 0 8px}
+  .proj p{color:var(--txt2);font-size:14px}
+  .proj .st{font-family:var(--mono);font-size:12px;color:var(--green);margin-top:10px;display:inline-block}
+  .proj a.live{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--blue);border:1px solid rgba(88,166,255,.3);border-radius:6px;padding:6px 12px}
+  .proj .stk{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .proj .stk span{font-family:var(--mono);font-size:11px;color:var(--txt3);border:1px solid var(--line);border-radius:5px;padding:3px 7px}
+  .proj .try{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  .proj .try .tl{font-family:var(--mono);font-size:12px;color:var(--green);margin-bottom:8px}
+  .proj .try a{display:inline-block;font-family:var(--mono);font-size:12.5px;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:6px 11px;margin:0 6px 6px 0}
+  .proj .try a:hover{border-color:var(--green);color:var(--green2)}
+
+  .skillgroup{margin-bottom:16px}
+  .skillgroup .lbl{font-family:var(--mono);font-size:12px;color:var(--txt3);margin-bottom:8px}
+
+  .edu{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .edu:last-child{border-bottom:none}
+  .edu .yr{font-family:var(--mono);font-size:12px;color:var(--green);min-width:96px}
+  .edu h3{font-size:15px}.edu p{color:var(--txt2);font-size:13px}
+
+  .contact a{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:14px;border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin:0 8px 10px 0;color:var(--txt)}
+  .contact a:hover{border-color:var(--green);color:var(--green2)}
+
+  /* AI console */
+  .console{background:#0a0e13;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--mono)}
+  .console .bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px;color:var(--txt3)}
+  .console .bar i{width:10px;height:10px;border-radius:50%;background:#30363d;display:inline-block}
+  .console .feed{padding:16px;max-height:300px;overflow-y:auto;font-size:13.5px}
+  .console .msg{margin-bottom:12px}
+  .console .q{color:var(--blue)}
+  .console .a{color:#c9d3de;white-space:pre-line}
+  .console .chips{padding:0 16px 14px}
+  .console .chip{cursor:pointer}
+  .console .chip:hover{border-color:var(--green)}
+  .console .inrow{display:flex;border-top:1px solid var(--line)}
+  .console input{flex:1;background:none;border:none;color:var(--txt);font-family:var(--mono);font-size:13.5px;padding:13px 16px;outline:none}
+  .console button.send{background:var(--green);border:none;color:#04130a;font-weight:700;padding:0 18px;cursor:pointer}
+
+  .manifesto{margin-top:30px;border-left:3px solid var(--green);background:var(--panel);border-radius:0 12px 12px 0;padding:18px 22px}
+  .manifesto .lbl{font-family:var(--mono);font-size:12px;color:var(--green);margin-bottom:8px}
+  .manifesto p{font-size:16px;color:#c9d3de;line-height:1.65}
+  .manifesto b{color:var(--green2);font-weight:500}
+  footer{padding:30px 0;text-align:center;font-family:var(--mono);font-size:12px;color:var(--txt3)}
+</style>
+</head>
+<body>
+
+<div id="boot">
+  <div class="l mono"><b>daniel@datascience</b>:~$ ./init</div>
+  <div class="l mono">> cargando portafolio<span id="bdots"></span></div>
+  <div class="l mono" style="color:var(--green)">[ OK ] perfil montado</div>
+</div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <span class="brand mono">~/daniel</span>
+      <span class="status" style="margin-left:14px"><span class="dot"></span><span data-es="disponible para trabajar" data-en="available for work">disponible para trabajar</span></span>
+      <div class="links mono">
+        <a onclick="go('about')" data-es="sobre mí" data-en="about">sobre mí</a>
+        <a onclick="go('proyectos')" data-es="proyectos" data-en="projects">proyectos</a>
+        <a onclick="go('skills')">skills</a>
+        <a onclick="go('educacion')" data-es="educación" data-en="education">educación</a>
+        <a onclick="go('contacto')" data-es="contacto" data-en="contact">contacto</a>
+      </div>
+      <div class="langtog">
+        <button id="lg-es" class="on" onclick="setLang('es')">ES</button>
+        <button id="lg-en" onclick="setLang('en')">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="hero">
+      <div>
+        <div class="prompt">$ whoami</div>
+        <h1>Daniel Droguett</h1>
+        <div class="role" data-es="Data Scientist · Plataformas de datos + IA" data-en="Data Scientist · Data platforms + AI">Data Scientist · Plataformas de datos + IA</div>
+        <div class="loc">Chillán, Chile · <span data-es="remoto / híbrido" data-en="remote / hybrid">remoto / híbrido</span></div>
+        <div class="bio">
+          <p data-es="De la prevención de riesgos y la logística a la ciencia de datos: llegué a los datos por el camino largo, y eso moldeó mi forma de pensar. Construyo soluciones de extremo a extremo, desde el ERP hasta dashboards y agentes de IA que las empresas usan a diario."
+             data-en="From risk prevention and logistics to data science: I came to data the long way, and that shaped how I think. I build end-to-end solutions — from the ERP to dashboards and AI agents that businesses use every day.">De la prevención de riesgos y la logística a la ciencia de datos: llegué a los datos por el camino largo, y eso moldeó mi forma de pensar. Construyo soluciones de extremo a extremo, desde el ERP hasta dashboards y agentes de IA que las empresas usan a diario.</p>
+          <p data-es="Primero hago la pregunta correcta: ¿esto necesita machine learning, o basta con un buen pipeline y una consulta SQL bien pensada? Ese criterio guía todo lo que construyo."
+             data-en="First I ask the right question: does this need machine learning, or is a solid pipeline and a well-thought SQL query enough? That judgment guides everything I build.">Primero hago la pregunta correcta: ¿esto necesita machine learning, o basta con un buen pipeline y una consulta SQL bien pensada? Ese criterio guía todo lo que construyo.</p>
+        </div>
+        <div class="stats mono">
+          <div><span class="k">[ ciencia de datos ]</span><br><span class="v" data-es="proyectos en producción" data-en="projects in production">proyectos en producción</span></div>
+          <div><span class="k">[ logística / operaciones ]</span><br><span class="v">4+ <span data-es="años" data-en="years">años</span></span></div>
+          <div><span class="k">[ formación ]</span><br><span class="v">TripleTen · 2026</span></div>
+          <div><span class="k">[ idiomas ]</span><br><span class="v" data-es="español nativo · inglés intermedio" data-en="native spanish · intermediate english">español nativo · inglés intermedio</span></div>
+        </div>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">PostgreSQL</span>
+          <span class="chip">Supabase</span><span class="chip">scikit-learn</span><span class="chip">Prophet</span><span class="chip">n8n</span>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="bar"><i></i><i></i><i></i><span style="margin-left:6px">perfil.cam</span></div>
+        <div class="body">
+          <div class="avatar" id="avatar"><img src="foto.jpg" alt="Daniel Droguett" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block" onerror="this.remove();var a=document.getElementById('avatar');a.textContent='DD'"></div>
+          <h3>Daniel A. Droguett R.</h3>
+          <div class="sub">data_scientist · chillán_cl</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="sechead mono">// 02</div>
+    <h2 data-es="Proyectos" data-en="Projects">Proyectos</h2>
+    <div class="grid">
+      <div class="proj feat">
+        <div class="tag">live demo</div>
+        <h3>Ramoncita — <span data-es="agentes de IA para restaurantes" data-en="AI agents for restaurants">agentes de IA para restaurantes</span></h3>
+        <p data-es="Panel con asistente de IA y agentes: ventas, food cost, ingeniería de menú, mermas, alertas y más. Muestra interactiva en vivo."
+           data-en="Dashboard with an AI assistant and agents: sales, food cost, menu engineering, waste, alerts and more. Live interactive demo.">Panel con asistente de IA y agentes: ventas, food cost, ingeniería de menú, mermas, alertas y más. Muestra interactiva en vivo.</p>
+        <a class="live" href="https://ramoncita.vercel.app" target="_blank">▶ ver demo en vivo →</a>
+      </div>
+      <div class="proj">
+        <div class="tag">live demo</div>
+        <h3>Tentao — <span data-es="copiloto de IA para restaurante" data-en="AI copilot for a restaurant">copiloto de IA para restaurante</span></h3>
+        <p data-es="El mismo producto de agentes, adaptado a otro restaurante: ventas, ingeniería de menú, mermas, cuadre de caja, margen real en delivery y asistente conversacional. Demo interactiva en vivo."
+           data-en="The same agent product, adapted to another restaurant: sales, menu engineering, waste, cash reconciliation, real delivery margin and a conversational assistant. Live interactive demo.">El mismo producto de agentes, adaptado a otro restaurante: ventas, ingeniería de menú, mermas, cuadre de caja, margen real en delivery y asistente conversacional. Demo interactiva en vivo.</p>
+        <a class="live" href="https://tentao-demo-chillan.vercel.app" target="_blank">▶ ver demo en vivo →</a>
+      </div>
+      <div class="proj">
+        <div class="tag" data-es="producción · plataforma completa" data-en="production · full platform">producción · plataforma completa</div>
+        <h3>El Chillanejo — <span data-es="plataforma de datos de extremo a extremo" data-en="end-to-end data platform">plataforma de datos de extremo a extremo</span></h3>
+        <p data-es="Una sola plataforma en producción: ERP (Relbase) → Supabase/PostgreSQL con sync automático horario, 3 dashboards por rol, tienda online con Mercado Pago, bot de IA en los canales de Meta (WhatsApp, Instagram, Facebook) y motor de recomendación por canastas. +132.000 ventas procesadas."
+           data-en="One end-to-end platform in production: ERP (Relbase) → Supabase/PostgreSQL with automated hourly sync, 3 role-based dashboards, an online store with Mercado Pago, an AI bot across Meta's channels (WhatsApp, Instagram, Facebook) and a basket-based recommendation engine. 132k+ sales processed.">Una sola plataforma en producción: ERP (Relbase) → Supabase/PostgreSQL con sync automático horario, 3 dashboards por rol, tienda online con Mercado Pago, bot de IA en los canales de Meta (WhatsApp, Instagram, Facebook) y motor de recomendación por canastas. +132.000 ventas procesadas.</p>
+        <div class="stk"><span>Python</span><span>SQL</span><span>Supabase</span><span>Next.js</span><span>Mercado Pago</span><span>bot Meta IA</span><span>n8n</span></div>
+        <div class="try">
+          <div class="tl" data-es="▶ pruébalo tú mismo — habla con el bot o visita la tienda:" data-en="▶ try it yourself — talk to the bot or visit the store:">▶ pruébalo tú mismo — habla con el bot o visita la tienda:</div>
+          <a href="https://elchillanejo.cl" target="_blank" data-es="🌐 tienda online" data-en="🌐 online store">🌐 tienda online</a>
+          <a href="https://wa.me/56987472938" target="_blank" data-es="💬 escríbele al bot (WhatsApp)" data-en="💬 message the bot (WhatsApp)">💬 escríbele al bot (WhatsApp)</a>
+          <a href="https://www.instagram.com/elchillanejo_/" target="_blank">📷 Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61590035984818" target="_blank">👍 Facebook</a>
+        </div>
+        <span class="st">● <span data-es="en producción" data-en="in production">en producción</span></span>
+      </div>
+      <div class="proj">
+        <div class="tag">data science</div>
+        <h3><span data-es="Optimización de demanda" data-en="Demand optimization">Optimización de demanda</span> — restaurante</h3>
+        <p data-es="Dataset tipo POS, KPIs financieros y operativos, Pareto 80/20, Menu Engineering y forecasting de demanda con Prophet."
+           data-en="POS-like dataset, financial and operational KPIs, 80/20 Pareto, Menu Engineering and demand forecasting with Prophet.">Dataset tipo POS, KPIs financieros y operativos, Pareto 80/20, Menu Engineering y forecasting de demanda con Prophet.</p>
+        <span class="st">● Python · pandas · Prophet</span>
+      </div>
+      <div class="proj">
+        <div class="tag" data-es="producción · uso diario" data-en="production · daily use">producción · uso diario</div>
+        <h3><span data-es="Operaciones de bodega e inventario" data-en="Warehouse &amp; inventory ops">Operaciones de bodega e inventario</span></h3>
+        <p data-es="Portal completo en uso diario por el equipo: inventario por escaneo de código de barras, transferencias entre bodegas (con generación de planilla para el ERP) y recepciones de mercadería."
+           data-en="Full portal used daily by the team: barcode-scan inventory, inter-warehouse transfers (with ERP spreadsheet generation) and goods receptions.">Portal completo en uso diario por el equipo: inventario por escaneo de código de barras, transferencias entre bodegas (con generación de planilla para el ERP) y recepciones de mercadería.</p>
+        <div class="stk"><span>Next.js</span><span>Supabase</span><span data-es="escáner de barras" data-en="barcode scan">escáner de barras</span></div>
+        <span class="st">● <span data-es="en producción" data-en="in production">en producción</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sechead mono">// 03</div>
+    <h2>Skills</h2>
+    <div class="skillgroup">
+      <div class="lbl mono" data-es="// lenguajes y datos" data-en="// languages and data">// lenguajes y datos</div>
+      <div class="chips">
+        <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">PostgreSQL</span><span class="chip">pandas</span><span class="chip">NumPy</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <div class="lbl mono" data-es="// machine learning" data-en="// machine learning">// machine learning</div>
+      <div class="chips">
+        <span class="chip">scikit-learn</span><span class="chip">statsmodels</span><span class="chip">Prophet</span><span class="chip" data-es="series de tiempo" data-en="time series">series de tiempo</span><span class="chip" data-es="modelos predictivos" data-en="predictive models">modelos predictivos</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <div class="lbl mono" data-es="// datos e infraestructura" data-en="// data and infrastructure">// datos e infraestructura</div>
+      <div class="chips">
+        <span class="chip">Supabase</span><span class="chip">n8n</span><span class="chip">Railway</span><span class="chip">Vercel</span><span class="chip">Cloudflare</span><span class="chip">ETL / pipelines</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <div class="lbl mono" data-es="// web e IA aplicada" data-en="// web and applied AI">// web e IA aplicada</div>
+      <div class="chips">
+        <span class="chip">Next.js</span><span class="chip">React</span><span class="chip" data-es="agentes / tool-use" data-en="agents / tool-use">agentes / tool-use</span><span class="chip" data-es="desarrollo asistido por IA" data-en="AI-augmented dev">desarrollo asistido por IA</span><span class="chip" data-es="humano en el loop" data-en="human-in-the-loop">humano en el loop</span><span class="chip">Git</span>
+      </div>
+    </div>
+    <div class="skillgroup">
+      <div class="lbl mono" data-es="// seguridad y buenas prácticas" data-en="// security and best practices">// seguridad y buenas prácticas</div>
+      <div class="chips">
+        <span class="chip">YubiKey · 2FA hardware</span><span class="chip">KeePass</span><span class="chip">RLS (PostgreSQL)</span><span class="chip" data-es="secretos fuera del código" data-en="secrets out of code">secretos fuera del código</span><span class="chip" data-es="cifrado en reposo y tránsito" data-en="encryption at rest & in transit">cifrado en reposo y tránsito</span><span class="chip" data-es="Ley 19.628 (datos, Chile)" data-en="Chile data-protection law">Ley 19.628 (datos, Chile)</span>
+      </div>
+    </div>
+    <div class="manifesto">
+      <div class="lbl">// cómo trabajo</div>
+      <p data-es="Construyo apalancado en IA como multiplicador — pero detrás de cada proyecto <b>siempre hay una persona</b>. Criterio humano en cada decisión, y siempre disponible para <b>hablar directamente contigo</b>. Creo que, con los años, el verdadero valor será la atención humana."
+         data-en="I build with AI as a force multiplier — but behind every project <b>there's always a person</b>. Human judgment on every decision, and <b>always reachable to talk with you directly</b>. I believe that, in the years ahead, the real value will be human attention.">Construyo apalancado en IA como multiplicador — pero detrás de cada proyecto <b>siempre hay una persona</b>. Criterio humano en cada decisión, y siempre disponible para <b>hablar directamente contigo</b>. Creo que, con los años, el verdadero valor será la atención humana.</p>
+    </div>
+  </section>
+
+  <!-- EDUCACIÓN -->
+  <section id="educacion">
+    <div class="sechead mono">// 04</div>
+    <h2 data-es="Educación" data-en="Education">Educación</h2>
+    <div class="edu"><div class="yr">2026</div><div><h3>Bootcamp Data Scientist — TripleTen</h3><p data-es="En curso · término octubre 2026" data-en="In progress · finishing October 2026">En curso · término octubre 2026</p></div></div>
+    <div class="edu"><div class="yr">2021</div><div><h3 data-es="Diplomado en Abastecimiento y Logística — Inacap" data-en="Diploma in Supply Chain and Logistics — Inacap">Diplomado en Abastecimiento y Logística — Inacap</h3></div></div>
+    <div class="edu"><div class="yr">2014–2018</div><div><h3 data-es="Experto en Prevención de Riesgos — Inacap" data-en="Risk Prevention Expert — Inacap">Experto en Prevención de Riesgos — Inacap</h3></div></div>
+    <div class="edu"><div class="yr">2006</div><div><h3 data-es="Técnico Jurídico — CFT Simón Bolívar" data-en="Legal Technician — CFT Simón Bolívar">Técnico Jurídico — CFT Simón Bolívar</h3></div></div>
+  </section>
+
+  <!-- ASISTENTE IA -->
+  <section id="asistente">
+    <div class="sechead mono">// 05</div>
+    <h2 data-es="Pregúntale a mi asistente" data-en="Ask my assistant">Pregúntale a mi asistente</h2>
+    <p style="color:var(--txt2);font-size:14px;margin-bottom:16px" data-es="Un asistente de IA que responde sobre mi experiencia. Pruébalo:" data-en="An AI assistant that answers about my experience. Try it:">Un asistente de IA que responde sobre mi experiencia. Pruébalo:</p>
+    <div class="console">
+      <div class="bar"><i></i><i></i><i></i><span style="margin-left:6px">assistant.exe</span></div>
+      <div class="feed" id="afeed">
+        <div class="msg"><span class="a" data-es="Hola 👋 Soy el asistente de Daniel. Pregúntame sobre su experiencia, proyectos o disponibilidad." data-en="Hi 👋 I'm Daniel's assistant. Ask me about his experience, projects or availability.">Hola 👋 Soy el asistente de Daniel. Pregúntame sobre su experiencia, proyectos o disponibilidad.</span></div>
+      </div>
+      <div class="chips">
+        <span class="chip" onclick="ask('python')" data-es="¿Experiencia en Python?" data-en="Python experience?">¿Experiencia en Python?</span>
+        <span class="chip" onclick="ask('proyecto')" data-es="¿Proyecto más fuerte?" data-en="Strongest project?">¿Proyecto más fuerte?</span>
+        <span class="chip" onclick="ask('ia')" data-es="¿Sabe de IA/agentes?" data-en="Does he know AI/agents?">¿Sabe de IA/agentes?</span>
+        <span class="chip" onclick="ask('disp')" data-es="¿Está disponible?" data-en="Is he available?">¿Está disponible?</span>
+      </div>
+      <div class="inrow">
+        <input id="ain" data-es-ph="Escribe tu pregunta…" placeholder="Escribe tu pregunta…" onkeydown="if(event.key==='Enter')askFree()">
+        <button class="send" onclick="askFree()">↵</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="border-bottom:none">
+    <div class="sechead mono">// 06</div>
+    <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
+    <p style="color:var(--txt2);font-size:15px;margin-bottom:18px" data-es="Abierto a oportunidades como Data Scientist y a proyectos de datos/IA. Conversemos:" data-en="Open to Data Scientist roles and data/AI projects. Let's talk:">Abierto a oportunidades como Data Scientist y a proyectos de datos/IA. Conversemos:</p>
+    <div class="contact">
+      <a href="cv.pdf" download data-es="⬇ Descargar CV" data-en="⬇ Download CV">⬇ Descargar CV</a>
+      <a href="mailto:dannidro@gmail.com">✉ dannidro@gmail.com</a>
+      <a href="https://www.linkedin.com/in/daniel-a-droguett-rozas-b65a991b4/" target="_blank">in · LinkedIn</a>
+      <a href="https://github.com/danni-droguett-data-scientist" target="_blank">⌥ GitHub</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="mono">daniel_droguett · data_scientist · chillán, cl · 2026</footer>
+
+<script>
+/* boot */
+let bd=0; const bdi=setInterval(function(){bd=(bd+1)%4;var e=document.getElementById('bdots');if(e)e.textContent='.'.repeat(bd);},250);
+setTimeout(function(){clearInterval(bdi);var b=document.getElementById('boot');b.style.opacity='0';setTimeout(function(){b.style.display='none';},500);},1600);
+
+/* idioma */
+let LANG='es';
+function setLang(l){
+  LANG=l;
+  document.documentElement.lang=l;
+  document.querySelectorAll('[data-es]').forEach(function(e){
+    var t=e.getAttribute('data-'+l); if(t!==null) e.innerHTML=t;
+  });
+  var inp=document.getElementById('ain');
+  if(inp) inp.placeholder = (l==='en'?'Type your question…':'Escribe tu pregunta…');
+  document.getElementById('lg-es').classList.toggle('on',l==='es');
+  document.getElementById('lg-en').classList.toggle('on',l==='en');
+}
+
+/* navegación suave */
+function go(id){ var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+
+/* asistente */
+var RESP={
+  python:{es:"Sí. Python es su herramienta principal: construyó los pipelines de ingesta (ERP → Supabase) con pandas y requests, análisis con scikit-learn y statsmodels, y forecasting con Prophet. Todo en producción, corriendo cada hora en Railway.",
+          en:"Yes. Python is his main tool: he built the ingestion pipelines (ERP → Supabase) with pandas and requests, analysis with scikit-learn and statsmodels, and forecasting with Prophet. All in production, running hourly on Railway."},
+  proyecto:{es:"El Chillanejo: una plataforma de datos completa en producción. ERP a Supabase/PostgreSQL, 3 dashboards por rol, +132.000 ventas, tienda online con Mercado Pago y un bot de WhatsApp con IA. De extremo a extremo, él solo.",
+            en:"El Chillanejo: a full data platform in production. ERP to Supabase/PostgreSQL, 3 role-based dashboards, 132k+ sales, an online store with Mercado Pago and an AI WhatsApp bot. End to end, on his own."},
+  ia:{es:"Sí. Construyó un bot de WhatsApp con IA (Claude, tool-use) y un producto de agentes para negocios — puedes verlo en vivo en la demo de Ramoncita (arriba, en Proyectos).",
+      en:"Yes. He built an AI WhatsApp bot (Claude, tool-use) and an agent product for businesses — you can see it live in the Ramoncita demo (above, in Projects)."},
+  disp:{es:"Está disponible y abierto a oportunidades como Data Scientist (remoto o híbrido) y a proyectos de datos/IA. La mejor vía: dannidro@gmail.com o LinkedIn.",
+        en:"He's available and open to Data Scientist roles (remote or hybrid) and data/AI projects. Best way to reach him: dannidro@gmail.com or LinkedIn."}
+};
+function addMsg(cls,txt){var f=document.getElementById('afeed');var d=document.createElement('div');d.className='msg';d.innerHTML='<span class="'+cls+'">'+txt+'</span>';f.appendChild(d);f.scrollTop=f.scrollHeight;}
+function ask(k){
+  var labels={python:{es:'¿Experiencia en Python?',en:'Python experience?'},proyecto:{es:'¿Proyecto más fuerte?',en:'Strongest project?'},ia:{es:'¿Sabe de IA/agentes?',en:'Does he know AI/agents?'},disp:{es:'¿Está disponible?',en:'Is he available?'}};
+  addMsg('q','> '+labels[k][LANG]);
+  setTimeout(function(){addMsg('a',RESP[k][LANG]);},350);
+}
+function askFree(){
+  var inp=document.getElementById('ain');var t=(inp.value||'').trim();if(!t)return;
+  addMsg('q','> '+t);inp.value='';
+  var s=t.toLowerCase();var k=null;
+  if(/python|pandas|código|code/.test(s))k='python';
+  else if(/proyecto|project|chillanejo|experien|trabaj/.test(s))k='proyecto';
+  else if(/ia|ai|agente|agent|bot|machine|ml/.test(s))k='ia';
+  else if(/disponib|available|contrat|hire|trabajo|job|contacto|contact/.test(s))k='disp';
+  setTimeout(function(){
+    if(k)addMsg('a',RESP[k][LANG]);
+    else addMsg('a', LANG==='en'?"Good question. For specifics, write to dannidro@gmail.com — try asking about Python, his projects, AI or availability.":"Buena pregunta. Para el detalle, escríbele a dannidro@gmail.com — prueba preguntando por Python, sus proyectos, IA o disponibilidad.");
+  },350);
+}
+</script>
+</body>
+</html>
