@@ -111,7 +111,42 @@
   .manifesto p{font-size:16px;color:#c9d3de;line-height:1.65}
   .manifesto b{color:var(--green2);font-weight:500}
   footer{padding:30px 0;text-align:center;font-family:var(--mono);font-size:12px;color:var(--txt3)}
-</style>
+
+  /* --- KPIs --- */
+  .kpiintro{color:var(--txt2);font-size:15px;line-height:1.65;max-width:760px;margin-bottom:22px}
+  .kpistrip{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:22px}
+  .kpibox{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .kpibox .n{font-family:var(--mono);color:var(--green2);font-size:20px;font-weight:700}
+  .kpibox .l{color:var(--txt3);font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+  .kpigrid{display:grid;grid-template-columns:1fr;gap:18px}
+  .kpicard{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0}
+  .kpicard img{width:100%;display:block;background:var(--bg)}
+  .kpicard figcaption{padding:14px 16px;border-top:1px solid var(--line);color:var(--txt2);font-size:14px;line-height:1.6}
+  .kpicard figcaption b{color:var(--txt);font-weight:600}
+  .kpicard .act{display:block;margin-top:7px;color:var(--green);font-family:var(--mono);font-size:12.5px}
+  @media(min-width:900px){ .kpistrip{grid-template-columns:repeat(4,1fr)} .kpigrid{grid-template-columns:1fr 1fr} .kpicard.wide{grid-column:1/-1} }
+
+  
+  /* --- social en nav --- */
+  nav .social{display:flex;gap:8px;align-items:center;margin-left:14px}
+  nav .social a{display:inline-flex;align-items:center;gap:5px;color:var(--txt2);border:1px solid var(--line);
+    border-radius:6px;padding:4px 9px;font-family:var(--mono);font-size:12px;cursor:pointer}
+  nav .social a:hover{border-color:var(--green);color:var(--green2)}
+  @media(max-width:720px){ nav .social{margin-left:0} }
+
+  
+  /* --- dashboards en producción --- */
+  .dashnote{display:flex;gap:9px;align-items:flex-start;background:rgba(88,166,255,.07);border:1px solid rgba(88,166,255,.25);
+    border-radius:8px;padding:11px 14px;margin:26px 0 16px;color:var(--txt2);font-size:13.5px;line-height:1.55}
+  .dashnote b{color:var(--blue)}
+  .dashgrid{display:grid;grid-template-columns:1fr;gap:16px}
+  .dashcard{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0}
+  .dashcard img{width:100%;display:block}
+  .dashcard figcaption{padding:12px 15px;border-top:1px solid var(--line);color:var(--txt2);font-size:13.5px;line-height:1.55}
+  .dashcard figcaption b{color:var(--txt);font-weight:600}
+  @media(min-width:900px){ .dashgrid{grid-template-columns:1fr 1fr} }
+
+  </style>
 </head>
 <body>
 
@@ -129,11 +164,16 @@
       <div class="links mono">
         <a onclick="go('about')" data-es="sobre mí" data-en="about">sobre mí</a>
         <a onclick="go('proyectos')" data-es="proyectos" data-en="projects">proyectos</a>
+        <a onclick="go('kpis')" data-es="kpis" data-en="kpis">kpis</a>
         <a onclick="go('skills')">skills</a>
         <a onclick="go('educacion')" data-es="educación" data-en="education">educación</a>
         <a onclick="go('contacto')" data-es="contacto" data-en="contact">contacto</a>
       </div>
-      <div class="langtog">
+      <span class="social">
+          <a href="https://www.linkedin.com/in/daniel-a-droguett-rozas-b65a991b4/" target="_blank" rel="noopener" title="LinkedIn">in · LinkedIn</a>
+          <a href="https://github.com/danni-droguett-data-scientist" target="_blank" rel="noopener" title="GitHub">⌥ GitHub</a>
+        </span>
+        <div class="langtog">
         <button id="lg-es" class="on" onclick="setLang('es')">ES</button>
         <button id="lg-en" onclick="setLang('en')">EN</button>
       </div>
@@ -231,9 +271,77 @@
     </div>
   </section>
 
+
+  <!-- KPIS -->
+  <section id="kpis">
+    <div class="sechead mono">// 03</div>
+    <h2 data-es="KPIs y análisis" data-en="KPIs &amp; analysis">KPIs y análisis</h2>
+    <p class="kpiintro"
+       data-es="Indicadores y hallazgos de mi proyecto de optimización de demanda (dataset tipo POS, sintético y reproducible: 60 productos, 120 días). Diseño, calculo y reporto los KPIs — y después traduzco cada hallazgo en una acción concreta de negocio."
+       data-en="Indicators and findings from my demand optimization project (POS-like synthetic, reproducible dataset: 60 products, 120 days). I design, compute and report the KPIs — then turn every finding into a concrete business action.">Indicadores y hallazgos de mi proyecto de optimización de demanda (dataset tipo POS, sintético y reproducible: 60 productos, 120 días). Diseño, calculo y reporto los KPIs — y después traduzco cada hallazgo en una acción concreta de negocio.</p>
+
+    <div class="kpistrip">
+      <div class="kpibox"><div class="n">12.568</div><div class="l" data-es="tickets" data-en="tickets">tickets</div></div>
+      <div class="kpibox"><div class="n">$30.525</div><div class="l" data-es="ticket promedio" data-en="avg ticket">ticket promedio</div></div>
+      <div class="kpibox"><div class="n">28,4%</div><div class="l" data-es="food cost" data-en="food cost">food cost</div></div>
+      <div class="kpibox"><div class="n">71,6%</div><div class="l" data-es="margen neto" data-en="net margin">margen neto</div></div>
+    </div>
+
+    <div class="kpigrid">
+      <figure class="kpicard">
+        <img src="kpi_pareto.png" alt="Pareto 80/20 de ventas por producto" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Concentración de ventas (Pareto 80/20).&lt;/b&gt; 23 de 60 productos — el 38% de la carta — explican el 80% de las ventas.&lt;span class='act'&gt;→ acción: asegurar disponibilidad de esos productos y simplificar la cola larga.&lt;/span&gt;"
+                   data-en="&lt;b&gt;Sales concentration (80/20 Pareto).&lt;/b&gt; 23 of 60 products — 38% of the menu — drive 80% of sales.&lt;span class='act'&gt;→ action: keep those in stock and simplify the long tail.&lt;/span&gt;"><b>Concentración de ventas (Pareto 80/20).</b> 23 de 60 productos — el 38% de la carta — explican el 80% de las ventas.<span class="act">→ acción: asegurar disponibilidad de esos productos y simplificar la cola larga.</span></figcaption>
+      </figure>
+
+      <figure class="kpicard">
+        <img src="kpi_menu.png" alt="Menu Engineering: rotación vs margen" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Menu Engineering.&lt;/b&gt; Cada producto cruzado por rotación y margen: 14 estrellas, 16 caballos de batalla, 16 puzzles y 14 perros.&lt;span class='act'&gt;→ acción: proteger las estrellas, promocionar los puzzles, rediseñar o eliminar los perros.&lt;/span&gt;"
+                   data-en="&lt;b&gt;Menu Engineering.&lt;/b&gt; Every item crossed by turnover and margin: 14 stars, 16 workhorses, 16 puzzles and 14 dogs.&lt;span class='act'&gt;→ action: protect the stars, promote the puzzles, redesign or drop the dogs.&lt;/span&gt;"><b>Menu Engineering.</b> Cada producto cruzado por rotación y margen: 14 estrellas, 16 caballos de batalla, 16 puzzles y 14 perros.<span class="act">→ acción: proteger las estrellas, promocionar los puzzles, rediseñar o eliminar los perros.</span></figcaption>
+      </figure>
+
+      <figure class="kpicard wide">
+        <img src="kpi_heatmap.png" alt="Heatmap de demanda por día y hora" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Patrón de demanda.&lt;/b&gt; Dos peaks claros: almuerzo (13:00–15:00) y cena (20:00–22:00), con el máximo el sábado a las 21:00.&lt;span class='act'&gt;→ acción: dimensionar turnos e inventario según la demanda real, no según la intuición.&lt;/span&gt;"
+                   data-en="&lt;b&gt;Demand pattern.&lt;/b&gt; Two clear peaks: lunch (1–3 PM) and dinner (8–10 PM), peaking Saturday at 9 PM.&lt;span class='act'&gt;→ action: size shifts and inventory against real demand, not intuition.&lt;/span&gt;"><b>Patrón de demanda.</b> Dos peaks claros: almuerzo (13:00–15:00) y cena (20:00–22:00), con el máximo el sábado a las 21:00.<span class="act">→ acción: dimensionar turnos e inventario según la demanda real, no según la intuición.</span></figcaption>
+      </figure>
+    </div>
+
+    <h3 style="font-size:18px;margin:38px 0 0" data-es="Tableros en producción — El Chillanejo" data-en="Production dashboards — El Chillanejo">Tableros en producción — El Chillanejo</h3>
+    <div class="dashnote"
+         data-es="🔒 &lt;b&gt;Cifras difuminadas por confidencialidad del cliente.&lt;/b&gt; Son tableros reales, en uso diario por el equipo. Se muestra la estructura, los indicadores y el diseño — nunca los datos del negocio ni los nombres de las personas (Ley 19.628)."
+         data-en="🔒 &lt;b&gt;Figures blurred for client confidentiality.&lt;/b&gt; These are real dashboards, used daily by the team. Structure, indicators and design are shown — never the business data or people's names (Chilean Law 19.628).">🔒 <b>Cifras difuminadas por confidencialidad del cliente.</b> Son tableros reales, en uso diario por el equipo. Se muestra la estructura, los indicadores y el diseño — nunca los datos del negocio ni los nombres de las personas (Ley 19.628).</div>
+
+    <div class="dashgrid">
+      <figure class="dashcard">
+        <img src="dash_negocio.png" alt="Dashboard de negocio" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Panel de negocio.&lt;/b&gt; Pulso del mes contra la meta, ventas del día por canal, proyección de cierre y ticket promedio. Los datos se sincronizan solos desde el ERP cada hora."
+                    data-en="&lt;b&gt;Business panel.&lt;/b&gt; Month pulse vs. target, daily sales by channel, closing forecast and average ticket. Data syncs automatically from the ERP every hour."><b>Panel de negocio.</b> Pulso del mes contra la meta, ventas del día por canal, proyección de cierre y ticket promedio. Los datos se sincronizan solos desde el ERP cada hora.</figcaption>
+      </figure>
+
+      <figure class="dashcard">
+        <img src="dash_bodega.png" alt="Dashboard de bodega e inventario" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Panel de bodega.&lt;/b&gt; Cuánto dinero se pierde al día por quiebres de stock, qué productos pedir hoy y qué productos estrella están en riesgo. El KPI no informa: manda a actuar."
+                    data-en="&lt;b&gt;Warehouse panel.&lt;/b&gt; Money lost per day to stockouts, what to order today, and which star products are at risk. The KPI doesn't just inform — it prescribes action."><b>Panel de bodega.</b> Cuánto dinero se pierde al día por quiebres de stock, qué productos pedir hoy y qué productos estrella están en riesgo. El KPI no informa: manda a actuar.</figcaption>
+      </figure>
+
+      <figure class="dashcard">
+        <img src="dash_ventas.png" alt="Ranking y evolución de ventas" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Rendimiento y evolución.&lt;/b&gt; Avance contra la meta diaria, ranking del equipo de ventas y evolución de los últimos 7 días (verde = meta cumplida)."
+                    data-en="&lt;b&gt;Performance and trend.&lt;/b&gt; Progress against the daily target, sales team ranking and 7-day trend (green = target met)."><b>Rendimiento y evolución.</b> Avance contra la meta diaria, ranking del equipo de ventas y evolución de los últimos 7 días (verde = meta cumplida).</figcaption>
+      </figure>
+
+      <figure class="dashcard">
+        <img src="dash_plata.png" alt="Plata dormida: capital inmovilizado en inventario" loading="lazy">
+        <figcaption data-es="&lt;b&gt;“Plata dormida”.&lt;/b&gt; Capital inmovilizado en productos sin una sola venta en 3 meses. Traducir el inventario a pesos parados es lo que convierte un dato en una decisión de compra."
+                    data-en="&lt;b&gt;“Sleeping money”.&lt;/b&gt; Capital locked in products with zero sales in 3 months. Turning inventory into idle cash is what turns data into a purchasing decision."><b>“Plata dormida”.</b> Capital inmovilizado en productos sin una sola venta en 3 meses. Traducir el inventario a pesos parados es lo que convierte un dato en una decisión de compra.</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- SKILLS -->
   <section id="skills">
-    <div class="sechead mono">// 03</div>
+    <div class="sechead mono">// 04</div>
     <h2>Skills</h2>
     <div class="skillgroup">
       <div class="lbl mono" data-es="// lenguajes y datos" data-en="// languages and data">// lenguajes y datos</div>
@@ -274,7 +382,7 @@
 
   <!-- EDUCACIÓN -->
   <section id="educacion">
-    <div class="sechead mono">// 04</div>
+    <div class="sechead mono">// 05</div>
     <h2 data-es="Educación" data-en="Education">Educación</h2>
     <div class="edu"><div class="yr">2026</div><div><h3>Bootcamp Data Scientist — TripleTen</h3><p data-es="En curso · término octubre 2026" data-en="In progress · finishing October 2026">En curso · término octubre 2026</p></div></div>
     <div class="edu"><div class="yr">2021</div><div><h3 data-es="Diplomado en Abastecimiento y Logística — Inacap" data-en="Diploma in Supply Chain and Logistics — Inacap">Diplomado en Abastecimiento y Logística — Inacap</h3></div></div>
@@ -284,7 +392,7 @@
 
   <!-- ASISTENTE IA -->
   <section id="asistente">
-    <div class="sechead mono">// 05</div>
+    <div class="sechead mono">// 06</div>
     <h2 data-es="Pregúntale a mi asistente" data-en="Ask my assistant">Pregúntale a mi asistente</h2>
     <p style="color:var(--txt2);font-size:14px;margin-bottom:16px" data-es="Un asistente de IA que responde sobre mi experiencia. Pruébalo:" data-en="An AI assistant that answers about my experience. Try it:">Un asistente de IA que responde sobre mi experiencia. Pruébalo:</p>
     <div class="console">
@@ -307,7 +415,7 @@
 
   <!-- CONTACTO -->
   <section id="contacto" style="border-bottom:none">
-    <div class="sechead mono">// 06</div>
+    <div class="sechead mono">// 07</div>
     <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
     <p style="color:var(--txt2);font-size:15px;margin-bottom:18px" data-es="Abierto a oportunidades como Data Scientist y a proyectos de datos/IA. Conversemos:" data-en="Open to Data Scientist roles and data/AI projects. Let's talk:">Abierto a oportunidades como Data Scientist y a proyectos de datos/IA. Conversemos:</p>
     <div class="contact">
