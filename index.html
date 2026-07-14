@@ -404,7 +404,7 @@
   <section id="asistente">
     <div class="sechead mono">// 06</div>
     <h2 data-es="Pregúntale a mi asistente" data-en="Ask my assistant">Pregúntale a mi asistente</h2>
-    <p style="color:var(--txt2);font-size:14px;margin-bottom:16px" data-es="Un asistente de IA que responde sobre mi experiencia. Pruébalo:" data-en="An AI assistant that answers about my experience. Try it:">Un asistente de IA que responde sobre mi experiencia. Pruébalo:</p>
+    <p style="color:var(--txt2);font-size:14px;margin-bottom:16px" data-es="Un asistente de IA real (Claude) que responde sobre mi experiencia. Corre en una función de servidor propia — la clave nunca viaja al navegador. Pregúntale lo que quieras:" data-en="A real AI assistant (Claude) answering about my experience. It runs on my own serverless function — the key never reaches the browser. Ask it anything:">Un asistente de IA real (Claude) que responde sobre mi experiencia. Corre en una función de servidor propia — la clave nunca viaja al navegador. Pregúntale lo que quieras:</p>
     <div class="console">
       <div class="bar"><i></i><i></i><i></i><span style="margin-left:6px">assistant.exe</span></div>
       <div class="feed" id="afeed">
@@ -463,34 +463,58 @@ function setLang(l){
 function go(id){ var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
 
 /* asistente */
-var RESP={
-  python:{es:"Sí. Python es su herramienta principal: construyó los pipelines de ingesta (ERP → Supabase) con pandas y requests, análisis con scikit-learn y statsmodels, y forecasting con Prophet. Todo en producción, corriendo cada hora en Railway.",
-          en:"Yes. Python is his main tool: he built the ingestion pipelines (ERP → Supabase) with pandas and requests, analysis with scikit-learn and statsmodels, and forecasting with Prophet. All in production, running hourly on Railway."},
-  proyecto:{es:"El Chillanejo: una plataforma de datos completa en producción. ERP a Supabase/PostgreSQL, 3 dashboards por rol, +132.000 ventas, tienda online con Mercado Pago y un bot de WhatsApp con IA. De extremo a extremo, él solo.",
-            en:"El Chillanejo: a full data platform in production. ERP to Supabase/PostgreSQL, 3 role-based dashboards, 132k+ sales, an online store with Mercado Pago and an AI WhatsApp bot. End to end, on his own."},
-  ia:{es:"Sí. Construyó un bot de WhatsApp con IA (Claude, tool-use) y un producto de agentes para negocios — puedes verlo en vivo en la demo de Ramoncita (arriba, en Proyectos).",
-      en:"Yes. He built an AI WhatsApp bot (Claude, tool-use) and an agent product for businesses — you can see it live in the Ramoncita demo (above, in Projects)."},
-  disp:{es:"Está disponible y abierto a oportunidades como Data Scientist (remoto o híbrido) y a proyectos de datos/IA. La mejor vía: dannidro@gmail.com o LinkedIn.",
-        en:"He's available and open to Data Scientist roles (remote or hybrid) and data/AI projects. Best way to reach him: dannidro@gmail.com or LinkedIn."}
-};
-function addMsg(cls,txt){var f=document.getElementById('afeed');var d=document.createElement('div');d.className='msg';d.innerHTML='<span class="'+cls+'">'+txt+'</span>';f.appendChild(d);f.scrollTop=f.scrollHeight;}
-function ask(k){
-  var labels={python:{es:'¿Experiencia en Python?',en:'Python experience?'},proyecto:{es:'¿Proyecto más fuerte?',en:'Strongest project?'},ia:{es:'¿Sabe de IA/agentes?',en:'Does he know AI/agents?'},disp:{es:'¿Está disponible?',en:'Is he available?'}};
-  addMsg('q','> '+labels[k][LANG]);
-  setTimeout(function(){addMsg('a',RESP[k][LANG]);},350);
+
+function addMsg(cls,txt,id){var f=document.getElementById('afeed');var d=document.createElement('div');d.className='msg';if(id)d.id=id;d.innerHTML='<span class="'+cls+'">'+txt+'</span>';f.appendChild(d);f.scrollTop=f.scrollHeight;return d;}
+
+var PENSANDO=false;
+
+function preguntar(texto){
+  if(PENSANDO) return;
+  addMsg('q','> '+texto);
+  PENSANDO=true;
+  var espera=addMsg('a', LANG==='en'?'thinking…':'pensando…','pensando');
+  fetch('/api/chat',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({message:texto, lang:LANG})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var e=document.getElementById('pensando'); if(e)e.remove();
+    var t=(d && (d.reply||d.error)) ? (d.reply||'') : '';
+    if(!t) t = LANG==='en'
+      ? "I couldn't answer right now. Write to dannidro@gmail.com."
+      : "No pude responder ahora. Escríbele a dannidro@gmail.com.";
+    addMsg('a', t.replace(/</g,'&lt;').replace(/\n/g,'<br>'));
+    PENSANDO=false;
+  })
+  .catch(function(){
+    var e=document.getElementById('pensando'); if(e)e.remove();
+    addMsg('a', LANG==='en'
+      ? "Connection failed. Write to dannidro@gmail.com."
+      : "Falló la conexión. Escríbele a dannidro@gmail.com.");
+    PENSANDO=false;
+  });
 }
+
+// chips sugeridos
+function ask(k){
+  var P={
+    python:{es:'¿Qué experiencia tiene en Python?',en:'What Python experience does he have?'},
+    proyecto:{es:'¿Cuál es su proyecto más fuerte?',en:'What is his strongest project?'},
+    ia:{es:'¿Qué ha construido con IA y agentes?',en:'What has he built with AI and agents?'},
+    disp:{es:'¿Está disponible para trabajar?',en:'Is he available for work?'}
+  };
+  preguntar(P[k][LANG]);
+}
+
+// pregunta libre
 function askFree(){
-  var inp=document.getElementById('ain');var t=(inp.value||'').trim();if(!t)return;
-  addMsg('q','> '+t);inp.value='';
-  var s=t.toLowerCase();var k=null;
-  if(/python|pandas|código|code/.test(s))k='python';
-  else if(/proyecto|project|chillanejo|experien|trabaj/.test(s))k='proyecto';
-  else if(/ia|ai|agente|agent|bot|machine|ml/.test(s))k='ia';
-  else if(/disponib|available|contrat|hire|trabajo|job|contacto|contact/.test(s))k='disp';
-  setTimeout(function(){
-    if(k)addMsg('a',RESP[k][LANG]);
-    else addMsg('a', LANG==='en'?"Good question. For specifics, write to dannidro@gmail.com — try asking about Python, his projects, AI or availability.":"Buena pregunta. Para el detalle, escríbele a dannidro@gmail.com — prueba preguntando por Python, sus proyectos, IA o disponibilidad.");
-  },350);
+  var inp=document.getElementById('ain');
+  var t=(inp.value||'').trim();
+  if(!t) return;
+  inp.value='';
+  preguntar(t);
 }
 </script>
 </body>
