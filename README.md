@@ -3,6 +3,8 @@
 Personal portfolio: a terminal-style, bilingual (ES/EN) single-page site showcasing
 data platforms, dashboards and AI agents in production.
 
+**Language / Idioma:** English | [Español](README.es.md)
+
 **🔗 Live:** https://daniel-droguett-ds.vercel.app
 
 ---
