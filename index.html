@@ -266,9 +266,9 @@
       <div class="proj">
         <div class="tag">data science</div>
         <h3><span data-es="Optimización de demanda" data-en="Demand optimization">Optimización de demanda</span> — restaurante</h3>
-        <p data-es="Dataset tipo POS, KPIs financieros y operativos, Pareto 80/20, Menu Engineering y forecasting de demanda con Prophet."
-           data-en="POS-like dataset, financial and operational KPIs, 80/20 Pareto, Menu Engineering and demand forecasting with Prophet.">Dataset tipo POS, KPIs financieros y operativos, Pareto 80/20, Menu Engineering y forecasting de demanda con Prophet.</p>
-        <span class="st">● Python · pandas · Prophet</span>
+        <p data-es="Dataset tipo POS, KPIs financieros y operativos, Pareto 80/20, Menu Engineering y forecasting de demanda con SARIMAX estacional (backtesting, MAPE 13%)."
+           data-en="POS-like dataset, financial and operational KPIs, 80/20 Pareto, Menu Engineering and demand forecasting with seasonal SARIMAX (backtesting, 13% MAPE).">Dataset tipo POS, KPIs financieros y operativos, Pareto 80/20, Menu Engineering y forecasting de demanda con SARIMAX estacional (backtesting, MAPE 13%).</p>
+        <span class="st">● Python · pandas · statsmodels (SARIMAX)</span>
       </div>
       <div class="proj">
         <div class="tag" data-es="producción · uso diario" data-en="production · daily use">producción · uso diario</div>
@@ -314,6 +314,11 @@
         <img src="kpi_heatmap.png" alt="Heatmap de demanda por día y hora" loading="lazy">
         <figcaption data-es="&lt;b&gt;Patrón de demanda.&lt;/b&gt; Dos peaks claros: almuerzo (13:00–15:00) y cena (20:00–22:00), con el máximo el sábado a las 21:00.&lt;span class='act'&gt;→ acción: dimensionar turnos e inventario según la demanda real, no según la intuición.&lt;/span&gt;"
                    data-en="&lt;b&gt;Demand pattern.&lt;/b&gt; Two clear peaks: lunch (1–3 PM) and dinner (8–10 PM), peaking Saturday at 9 PM.&lt;span class='act'&gt;→ action: size shifts and inventory against real demand, not intuition.&lt;/span&gt;"><b>Patrón de demanda.</b> Dos peaks claros: almuerzo (13:00–15:00) y cena (20:00–22:00), con el máximo el sábado a las 21:00.<span class="act">→ acción: dimensionar turnos e inventario según la demanda real, no según la intuición.</span></figcaption>
+      </figure>
+      <figure class="kpicard wide">
+        <img src="forecast_demanda.png" alt="Forecasting de demanda diaria con SARIMAX estacional" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Forecasting de demanda.&lt;/b&gt; Modelo SARIMAX estacional validado con &lt;i&gt;backtesting&lt;/i&gt; sobre los últimos 30 días (sin data leakage): MAPE 13,3%, mejor que los baselines naive. Proyecta la demanda a 30 días con intervalo de confianza.&lt;span class='act'&gt;→ acción: planificar compras y turnos con anticipación, reduciendo quiebres y mermas.&lt;/span&gt;"
+                   data-en="&lt;b&gt;Demand forecasting.&lt;/b&gt; Seasonal SARIMAX model validated with backtesting over the last 30 days (no data leakage): 13.3% MAPE, beating the naive baselines. Projects demand 30 days ahead with a confidence band.&lt;span class='act'&gt;→ action: plan purchasing and staffing ahead, cutting stockouts and waste.&lt;/span&gt;"><b>Forecasting de demanda.</b> Modelo SARIMAX estacional validado con <i>backtesting</i> sobre los últimos 30 días (sin data leakage): MAPE 13,3%, mejor que los baselines naive. Proyecta la demanda a 30 días con intervalo de confianza.<span class="act">→ acción: planificar compras y turnos con anticipación, reduciendo quiebres y mermas.</span></figcaption>
       </figure>
     </div>
 
