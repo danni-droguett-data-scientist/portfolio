@@ -420,8 +420,11 @@
     <div class="edu"><div class="yr">2006</div><div><h3 data-es="Técnico Jurídico — CFT Simón Bolívar" data-en="Legal Technician — CFT Simón Bolívar">Técnico Jurídico — CFT Simón Bolívar</h3></div></div>
   </section>
 
-  <!-- ASISTENTE IA -->
-  <section id="asistente">
+  <!-- ASISTENTE IA -- OCULTO, NO BORRADO (7-sep-2026, decision de Danni).
+       La seccion completa sigue aca y api/chat.js sigue desplegado: para
+       volver a mostrarla basta con sacar el `hidden` de la linea siguiente y
+       devolver la numeracion (esta seccion es // 06 y Contacto vuelve a // 07). -->
+  <section id="asistente" hidden style="display:none">
     <div class="sechead mono">// 06</div>
     <h2 data-es="Pregúntale a mi asistente" data-en="Ask my assistant">Pregúntale a mi asistente</h2>
     <p style="color:var(--txt2);font-size:14px;margin-bottom:16px" data-es="Un asistente de IA real (Claude) que responde sobre mi experiencia. Corre en una función de servidor propia — la clave nunca viaja al navegador. Pregúntale lo que quieras:" data-en="A real AI assistant (Claude) answering about my experience. It runs on my own serverless function — the key never reaches the browser. Ask it anything:">Un asistente de IA real (Claude) que responde sobre mi experiencia. Corre en una función de servidor propia — la clave nunca viaja al navegador. Pregúntale lo que quieras:</p>
@@ -445,7 +448,7 @@
 
   <!-- CONTACTO -->
   <section id="contacto" style="border-bottom:none">
-    <div class="sechead mono">// 07</div>
+    <div class="sechead mono">// 06</div>
     <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
     <p style="color:var(--txt2);font-size:15px;margin-bottom:18px" data-es="Abierto a oportunidades como Data Scientist y a proyectos de datos/IA. Conversemos:" data-en="Open to Data Scientist roles and data/AI projects. Let's talk:">Abierto a oportunidades como Data Scientist y a proyectos de datos/IA. Conversemos:</p>
     <div class="contact">
