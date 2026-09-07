@@ -274,8 +274,8 @@
            data-en="Three decisions hold it up: <b>stock is never written by hand</b> — it only moves through a ledger entry, so there's always an answer to why it changed; <b>reconciliation separates the real shortfall from pending paperwork</b>, which are different things chased differently; and <b>the driver's delivery is a single transaction</b> — sale, empties, loan and payment commit together or not at all, because between one write and the next there's a truck's network.">Tres decisiones que lo sostienen: <b>el stock no se escribe a mano</b> — solo se mueve con un asiento en el kardex, así que siempre hay respuesta a por qué cambió; <b>la cuadratura separa el faltante real del papeleo pendiente</b>, que son cosas distintas y se persiguen distinto; y <b>la entrega del repartidor es una sola transacción</b> — venta, vacíos, comodato y cobro pasan juntos o no pasa ninguno, porque entre una escritura y otra hay una red de camión.</p>
         <div class="stk"><span>PostgreSQL</span><span>Supabase</span><span>RLS multi-tenant</span><span>Next.js 16</span><span>React 19</span><span>Edge Functions</span><span>pgTAP</span><span>GitHub Actions</span></div>
         <span class="st">● <span data-es="52 migraciones versionadas · 41 tablas con aislamiento por empresa · 217 pruebas pgTAP que bloquean el merge" data-en="52 versioned migrations · 41 tables isolated per company · 217 pgTAP tests gating every merge">52 migraciones versionadas · 41 tablas con aislamiento por empresa · 217 pruebas pgTAP que bloquean el merge</span></span>
-        <p style="color:var(--txt2);font-size:13px;margin-top:10px" data-es="Sin enlace público ni capturas: opera con datos reales de clientes de la distribuidora. Con gusto lo muestro en vivo en una conversación."
-           data-en="No public link or screenshots: it runs on the distributor's real customer data. Happy to walk through it live in a conversation.">Sin enlace público ni capturas: opera con datos reales de clientes de la distribuidora. Con gusto lo muestro en vivo en una conversación.</p>
+        <p style="color:var(--txt2);font-size:13px;margin-top:10px" data-es="Las capturas de más abajo son del sistema corriendo, con datos de demostración. Sin enlace público: la distribuidora entra en producción con sus propios datos y esos no se muestran. Con gusto lo recorro en vivo en una conversación."
+           data-en="The screenshots below are the running system on demo data. No public link: the distributor goes live with its own customer data, and that is never shown. Happy to walk through it live in a conversation.">Las capturas de más abajo son del sistema corriendo, con datos de demostración. Sin enlace público: la distribuidora entra en producción con sus propios datos y esos no se muestran. Con gusto lo recorro en vivo en una conversación.</p>
       </div>
       <div class="proj">
         <div class="tag">data science</div>
@@ -293,6 +293,37 @@
         <div class="stk"><span>Next.js</span><span>Supabase</span><span data-es="escáner de barras" data-en="barcode scan">escáner de barras</span></div>
         <span class="st">● <span data-es="en producción" data-en="in production">en producción</span></span>
       </div>
+    </div>
+
+    <h3 style="font-size:18px;margin:38px 0 0">App Gas <span data-es="en pantalla" data-en="on screen">en pantalla</span></h3>
+    <div class="dashnote"
+         data-es="⚠️ &lt;b&gt;Datos de demostración, no de un cliente.&lt;/b&gt; Los nombres, teléfonos y montos de estas capturas son inventados. El sistema es el real y las pantallas son las que se usan; los datos de la distribuidora no aparecen acá ni aparecerán (Ley 19.628)."
+         data-en="⚠️ &lt;b&gt;Demo data, not a client's.&lt;/b&gt; Names, phone numbers and amounts in these screenshots are made up. The system and the screens are the real ones; the distributor's data is not here and will not be (Chilean Law 19.628).">⚠️ <b>Datos de demostración, no de un cliente.</b> Los nombres, teléfonos y montos de estas capturas son inventados. El sistema es el real y las pantallas son las que se usan; los datos de la distribuidora no aparecen acá ni aparecerán (Ley 19.628).</div>
+
+    <div class="dashgrid">
+      <figure class="dashcard">
+        <img src="appgas_hoy.jpg" alt="Pantalla Hoy: pedidos del dia, que hay que pedir, a quien llamar, la ruta y lo que quedo sin cerrar" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Hoy.&lt;/b&gt; La portada contesta las cuatro preguntas del turno: qué hay que pedir, a quién hay que llamar, cómo va la ruta y qué quedó sin cerrar. Cada número dice de dónde sale y termina en la pantalla que lo resuelve."
+                    data-en="&lt;b&gt;Today.&lt;/b&gt; The landing screen answers the four questions of the shift: what to order, who to call, how the route is going, and what was left open. Every number says where it comes from and links to the screen that resolves it."><b>Hoy.</b> La portada contesta las cuatro preguntas del turno: qué hay que pedir, a quién hay que llamar, cómo va la ruta y qué quedó sin cerrar. Cada número dice de dónde sale y termina en la pantalla que lo resuelve.</figcaption>
+      </figure>
+
+      <figure class="dashcard">
+        <img src="appgas_cuadratura.jpg" alt="Cuadratura de envases: faltan 10 sin explicar, formato por formato" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Cuadratura.&lt;/b&gt; El conteo del día, formato por formato. La palabra clave es &lt;i&gt;sin explicar&lt;/i&gt;: un envase en manos de un cliente con comodato firmado no es un faltante, es papeleo. Separar los dos evita perseguir a un repartidor por algo que estaba anotado."
+                    data-en="&lt;b&gt;Reconciliation.&lt;/b&gt; The day's count, format by format. The key word is &lt;i&gt;unexplained&lt;/i&gt;: a cylinder held by a customer with a signed loan is not a shortfall, it's paperwork. Separating the two avoids chasing a driver over something already on record."><b>Cuadratura.</b> El conteo del día, formato por formato. La palabra clave es <i>sin explicar</i>: un envase en manos de un cliente con comodato firmado no es un faltante, es papeleo. Separar los dos evita perseguir a un repartidor por algo que estaba anotado.</figcaption>
+      </figure>
+
+      <figure class="dashcard">
+        <img src="appgas_entrega.jpg" alt="Ruta del dia del repartidor con entrega, vacios y cobro" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Ruta del repartidor.&lt;/b&gt; Venta, vacíos recibidos, comodato y cobro se guardan en una sola transacción: pasan los cuatro o no pasa ninguno. Entre una escritura y la siguiente hay una red de camión. El precio se muestra, no se negocia: lo calcula la base según la lista vigente y el descuento del cliente."
+                    data-en="&lt;b&gt;Driver's route.&lt;/b&gt; Sale, empties, cylinder loan and payment commit as one transaction: all four or none. Between one write and the next there's a truck's network. The price is shown, not negotiated: the database computes it from the current list and the customer's discount."><b>Ruta del repartidor.</b> Venta, vacíos recibidos, comodato y cobro se guardan en una sola transacción: pasan los cuatro o no pasa ninguno. Entre una escritura y la siguiente hay una red de camión. El precio se muestra, no se negocia: lo calcula la base según la lista vigente y el descuento del cliente.</figcaption>
+      </figure>
+
+      <figure class="dashcard">
+        <img src="appgas_por_terminar.jpg" alt="Clientes con gas por terminar, ordenados por urgencia" loading="lazy">
+        <figcaption data-es="&lt;b&gt;Gas por terminar.&lt;/b&gt; Predicción de recompra por mediana de los intervalos entre compras, no por promedio. La advertencia está escrita en la pantalla, no escondida en la documentación: predice bien al cliente regular y mal al irregular, y no sabe distinguir cuál es cuál. Sirve para ordenar los llamados del día, no para prometer una fecha."
+                    data-en="&lt;b&gt;Running out of gas.&lt;/b&gt; Repurchase prediction from the median interval between purchases, not the mean. The caveat is written on the screen, not buried in the docs: it predicts regular customers well and irregular ones badly, and it cannot tell which is which. It's for ordering the day's calls, not for promising a date."><b>Gas por terminar.</b> Predicción de recompra por mediana de los intervalos entre compras, no por promedio. La advertencia está escrita en la pantalla, no escondida en la documentación: predice bien al cliente regular y mal al irregular, y no sabe distinguir cuál es cuál. Sirve para ordenar los llamados del día, no para prometer una fecha.</figcaption>
+      </figure>
     </div>
   </section>
 
