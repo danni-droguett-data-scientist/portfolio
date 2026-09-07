@@ -156,6 +156,18 @@
   .dashcard figcaption b{color:var(--txt);font-weight:600}
   @media(min-width:900px){ .dashgrid{grid-template-columns:1fr 1fr} }
 
+
+  /* Visor de imagenes. Una captura de un tablero es ilegible al ancho de una
+     tarjeta: o se puede agrandar, o no sirve de nada ponerla. */
+  .kpicard img, .dashcard img{cursor:zoom-in}
+  .kpicard img:hover, .dashcard img:hover{opacity:.92}
+  #lb{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.93);
+      display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+  #lb.on{display:flex}
+  #lb img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 24px 70px rgba(0,0,0,.7)}
+  #lb .cerrar{position:absolute;top:14px;right:20px;font-family:var(--mono);font-size:22px;
+              color:var(--txt2);background:none;border:none;cursor:pointer;line-height:1}
+  #lb .cerrar:hover{color:var(--txt)}
   </style>
 </head>
 <body>
@@ -494,6 +506,11 @@
 
 <footer class="mono">© 2026 Daniel Droguett · data_scientist · chillán, cl · <span data-es="todos los derechos reservados" data-en="all rights reserved">todos los derechos reservados</span></footer>
 
+<div id="lb" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="cerrar" onclick="cerrarLb()" aria-label="Cerrar">✕</button>
+  <img id="lbimg" alt="">
+</div>
+
 <script>
 /* boot */
 let bd=0; const bdi=setInterval(function(){bd=(bd+1)%4;var e=document.getElementById('bdots');if(e)e.textContent='.'.repeat(bd);},250);
@@ -570,6 +587,30 @@ function askFree(){
   inp.value='';
   preguntar(t);
 }
+
+// ---------------------------------------------------------------------------
+// Visor de imagenes
+// ---------------------------------------------------------------------------
+// Delegado en document y no un onclick por imagen: asi cualquier captura que
+// se agregue despues queda ampliable sola, sin acordarse de nada.
+function abrirLb(src, alt){
+  var l = document.getElementById('lb'), i = document.getElementById('lbimg');
+  i.src = src; i.alt = alt || '';
+  l.classList.add('on'); l.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarLb(){
+  var l = document.getElementById('lb');
+  l.classList.remove('on'); l.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  document.getElementById('lbimg').src = '';
+}
+document.addEventListener('click', function(e){
+  var im = e.target.closest && e.target.closest('.kpicard img, .dashcard img');
+  if(im){ abrirLb(im.currentSrc || im.src, im.alt); return; }
+  if(e.target.id === 'lb' || e.target.id === 'lbimg') cerrarLb();
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') cerrarLb(); });
 </script>
 </body>
 </html>
